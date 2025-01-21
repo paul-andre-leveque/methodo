@@ -1,0 +1,52 @@
+databaseChangeLog:
+  - changeSet:
+      id: "20231009000500"
+      author: "pal"
+      preConditions:
+        onFail: "MARK_RAN"
+        not:
+          - tableExists:
+              tableName: "book"
+      changes:
+        - createTable:
+            tableName: "book"
+            columns:
+              - column:
+                  name: "id"
+                  type: "int"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: "title"
+                  type: "varchar"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: "author"
+                  type: "varchar"
+                  constraints:
+                    nullable: false
+        - addPrimaryKey:
+            tableName: "book"
+            columnNames: "id"
+        - addAutoIncrement:
+            tableName: "book"
+            columnName: "id"
+
+  - changeSet:
+      id: "20240121000500"
+      author: "pal"
+      preConditions:
+        onFail: "MARK_RAN"
+        not:
+          - columnExists:
+              tableName: "book"
+              columnName: "is_reserved"
+      changes:
+        - addColumn:
+            tableName: "book"
+            columns:
+              - column:
+                  name: "is_reserved"
+                  type: "boolean"
+                  defaultValueBoolean: false
